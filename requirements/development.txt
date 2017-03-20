@@ -1,0 +1,5 @@
+# pip install -r requirements/dev.txt
+-r base.txt # includes the base.txt requirements file
+Fabric==1.13.1
+ipdb==0.10.2
+ipython==5.3.0
