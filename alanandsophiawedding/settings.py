@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'alanandsophiawedding.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['A_S_DB_NAME'],
+        'USER': os.environ['A_S_DB_USER'],
+        'PASSWORD': os.environ['A_S_DB_PASS'],
+        'HOST': os.environ['A_S_DB_HOST'],
+        'PORT': os.environ['A_S_DB_PORT'],
     }
 }
 

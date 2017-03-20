@@ -1,4 +1,4 @@
-"""
+r"""
  __          __     _____  _   _ _____ _   _  _____
  \ \        / /\   |  __ \| \ | |_   _| \ | |/ ____|
   \ \  /\  / /  \  | |__) |  \| | | | |  \| | |  __
@@ -18,8 +18,8 @@ sys.path.insert(0, sys.path[0])
 from fabric.api import local, env, hide, settings
 from fabric.contrib import django
 
-django.settings_module('searchlens.settings.development')
-from django.conf import settings as searchlens_settings
+django.settings_module('alanandsophiawedding.settings')
+from django.conf import settings as alanandsophiawedding_settings
 
 
 env.host_string = 'localhost'
@@ -67,8 +67,8 @@ def postgres_drop_account_setup():
 
 
 def create_database_user():
-    db_user = searchlens_settings.DATABASES['default']['USER']
-    db_psswd = searchlens_settings.DATABASES['default']['PASSWORD']
+    db_user = alanandsophiawedding_settings.DATABASES['default']['USER']
+    db_psswd = alanandsophiawedding_settings.DATABASES['default']['PASSWORD']
 
     with hide('running', 'warnings'), settings(warn_only=True):
         local('psql -c "CREATE USER %s WITH PASSWORD \'%s\';"' %
@@ -76,8 +76,8 @@ def create_database_user():
 
 
 def create_database():
-    db_user = searchlens_settings.DATABASES['default']['USER']
-    db_name = searchlens_settings.DATABASES['default']['NAME']
+    db_user = alanandsophiawedding_settings.DATABASES['default']['USER']
+    db_name = alanandsophiawedding_settings.DATABASES['default']['NAME']
 
     with hide('running', 'warnings'), settings(warn_only=True):
         local(
@@ -85,10 +85,8 @@ def create_database():
 
 
 def drop_database():
-    """
-    Drops the user database. Needs to be run before drop_user()
-    """
-    db_name = searchlens_settings.DATABASES['default']['NAME']
+    """Drop the user database. Needs to be run before drop_user()"""
+    db_name = alanandsophiawedding_settings.DATABASES['default']['NAME']
 
     with hide('running', 'warnings'), settings(warn_only=True):
         local('psql -c "DROP DATABASE IF EXISTS %s;"' % (db_name))
@@ -96,10 +94,10 @@ def drop_database():
 
 def drop_user():
     """
-    Drops the user role. Needs to be run after drop_database().
+    Drop the user role. Needs to be run after drop_database().
     Needs to be run with sudo privileges.
     """
-    db_user = searchlens_settings.DATABASES['default']['USER']
+    db_user = alanandsophiawedding_settings.DATABASES['default']['USER']
 
     with hide('running', 'warnings'), settings(warn_only=True):
         local('psql -c "DROP USER IF EXISTS %s;"' % (db_user))
